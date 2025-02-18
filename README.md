@@ -13,12 +13,10 @@ This is a simple URL shortener application that allows users to input long URLs,
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/url-shortener.git
+   git clone https://github.com/MuhammadHasoun/URL-Shortener.git
 
-
-CREATE TABLE urls (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    original_url VARCHAR(255) NOT NULL,
-    short_url VARCHAR(255) UNIQUE NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+ Database Schema (Tabel: urls)
+     •id (INT, auto-increment)
+     •original_url (VARCHAR)
+     •short_url (VARCHAR, unieke waarde)
+     •timestamp (DATETIME)
