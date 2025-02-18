@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swaptoo URL Shortener</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .input-box {
+            padding: 10px;
+            width: 60%;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+
+        }
+        .button:hover {
+            background-color: #3399FF; /* Darker green on hover */
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function shortenURL() {
+            let userURL = document.getElementById("urlInput").value;
+            if (!userURL) {
+                alert("Voer een geldige URL in.");
+                return;
+            }
+            
+            fetch("shorten.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "url=" + encodeURIComponent(userURL)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("originalURL").textContent = "Jouw URL: " + userURL;
+                    document.getElementById("shortenedURL").textContent = "Verkorte URL: " + data.short_url;
+                    document.getElementById("popup").style.display = "block";
+                } else {
+                    alert("Er is een fout opgetreden bij het verkorten van de URL.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function copyURL() {
+            let shortURL = document.getElementById("shortenedURL").textContent.replace("Verkorte URL: ", "");
+            navigator.clipboard.writeText(shortURL);
+            alert("Gekopieerd: " + shortURL);
+        }
+        
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <h1><strong>Swaptoo</strong> URL Shortener</h1>
+    <div class="container">
+        <input type="text" id="urlInput" class="input-box" placeholder="Voer een URL in die je wilt verkorten...">
+        <br>
+        <button class="button" onclick="shortenURL()">Verkort URL</button>
+    </div>
+    <div id="popup" class="popup">
+        <p id="originalURL"></p>
+        <p id="shortenedURL"></p>
+        <button onclick="copyURL()">Kopiëren</button>
+        <button onclick="closePopup()">Sluiten</button>
+    </div>
+</body>
+</html>
