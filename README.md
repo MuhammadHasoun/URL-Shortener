@@ -15,7 +15,7 @@ This is a simple URL shortener application that allows users to input long URLs,
    ```bash
    git clone https://github.com/MuhammadHasoun/URL-Shortener.git
 
- Database Schema (Tabel: urls)
+ ## Database Schema (Tabel: urls)
      **•id (INT, auto-increment)
      •original_url (VARCHAR)
      •short_url (VARCHAR, unieke waarde)
