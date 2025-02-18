@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["url"])) {
     $original_url = trim($_POST["url"]);
     // Genereer een nieuwe korte URL
     $short_code = substr(md5(uniqid($original_url, true)), 0, 6);
-    $short_url = "http://localhost/url_shorten/redirect/?link=" . $short_code;
+    $short_url = "http://localhost/url_shorten/new/?link=" . $short_code;
     
     $stmt = $conn->prepare("INSERT INTO urls (original_url, short_url, timestamp) VALUES (?, ?, NOW())");
     $stmt->bind_param("ss", $original_url, $short_url);
