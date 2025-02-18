@@ -1,6 +1,8 @@
 # URL Shortener
 
 This is a simple URL shortener application that allows users to input long URLs, which are then shortened using MD5 encryption. The original URL and its corresponding shortened URL are saved in a database for easy access.
+# Important
+Make sure to adjust the PHP port to match the version of your PHP.
 
 ## Features
 - **URL Input**: Users can enter a long URL to shorten it.
